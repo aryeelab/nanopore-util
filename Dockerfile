@@ -1,6 +1,6 @@
 FROM r-base:3.5.2
 
-RUN apt-get update && apt-get install -y datamash procps git
+RUN apt-get update && apt-get install -y python3.7 datamash procps git
 
 RUN echo "install.packages('stringr', repos='https://cran.rstudio.com')" | R --no-save
 RUN echo "install.packages('readr', repos='https://cran.rstudio.com')" | R --no-save
