@@ -3,6 +3,20 @@ import pandas as pd
 import numpy as np
 import math
 
+######### Usage ######### 
+## Convert nanopolish output to BED
+# awk -v OFS="\t" '{ if (NR!=1) print $1,$3,$4,$5,$6,$2 }' test.methylation_calls.tsv > test.methylation_calls.bed
+
+## Pad CGI bed to include shores
+#bedtools slop -i grch38_cgi.bed -g grch38.chrom.sizes -b 2000 > grch38_cgi_shores.bed
+
+## Restrict methylation calls to those falling outside of islands and shores
+#bedtools intersect -a test.methylation_calls.bed -b grch38_cgi_shores.bed -v > test.methylation_calls.nocgi.bed
+
+## Summarize methylation by read using this script
+#python methylation_by_read.py test.methylation_calls.nocgi.bed test.methylation_by_read.tsv 2.5
+########################### 
+
 #infile = "test.methylation_calls.nocgi.bed"
 #outfile = "test.methylation_by_read.tsv"
 #log_lik_threshold = 2.5
